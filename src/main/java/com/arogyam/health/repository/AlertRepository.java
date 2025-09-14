@@ -1,0 +1,5 @@
+package com.arogyam.health.repository;
+
+public interface AlertRepository {
+
+}
