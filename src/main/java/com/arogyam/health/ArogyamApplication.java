@@ -13,6 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class ArogyamApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(ArogyamApplication.class, args);
 	}
 

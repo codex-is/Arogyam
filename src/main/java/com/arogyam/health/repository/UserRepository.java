@@ -31,5 +31,5 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     List<UserEntity> findActiveUserByRole(@Param("role") UserRole role);
 
     @Query("SELECT COUNT(u) FROM UserEntity u WHERE u.role = :role AND u.district = :district")
-    long countByRoleAndDstrict(@Param("role") UserRole role, @Param("district") String district );
+    long countByRoleAndDistrict(@Param("role") UserRole role, @Param("district") String district );
 }

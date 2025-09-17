@@ -1,9 +1,8 @@
 package com.arogyam.health.dto;
 
-import lombok.Data;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
-@Data
 public class ApiResponseDto<T> {
     private boolean success;
     private String message;
@@ -20,6 +19,47 @@ public class ApiResponseDto<T> {
         this.success = success;
         this.message = message;
         this.data = data;
+    }
+
+    // Getters and Setters
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
 
     // Success responses
@@ -47,5 +87,35 @@ public class ApiResponseDto<T> {
         ApiResponseDto<T> response = new ApiResponseDto<>(false, message, validationErrors);
         response.setError("Validation failed");
         return response;
+    }
+
+    // equals and hashCode
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ApiResponseDto)) return false;
+        ApiResponseDto<?> that = (ApiResponseDto<?>) o;
+        return success == that.success &&
+                Objects.equals(message, that.message) &&
+                Objects.equals(data, that.data) &&
+                Objects.equals(timestamp, that.timestamp) &&
+                Objects.equals(error, that.error);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(success, message, data, timestamp, error);
+    }
+
+    // toString
+    @Override
+    public String toString() {
+        return "ApiResponseDto{" +
+                "success=" + success +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                ", timestamp=" + timestamp +
+                ", error='" + error + '\'' +
+                '}';
     }
 }
