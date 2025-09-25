@@ -1,81 +1,68 @@
 package com.arogyam.health.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "users")
 public class UserEntity {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique = true, nullable = false)
     private String username;
+
+    @Column(nullable = false)
     private String passwordHash;
+
+    @Column(nullable = false)
     private String fullName;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private UserRole role;
-    private boolean isActive;
+
+    @Column(nullable = false)
+    private Boolean isActive = true;
+
+    @Column(unique = true, nullable = false)
     private String phoneNumber;
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    private String state;
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     private String email;
 
-    public String getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(String district) {
-        this.district = district;
-    }
-
     private String district;
 
-    public Long getVillageId() {
-        return villageId;
-    }
+    private String state;
 
-    public void setVillageId(Long villageId) {
-        this.villageId = villageId;
-    }
+    // Using String for village name - simpler approach
+    private String village;
 
-    private Long villageId;
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
 
+    @Column(name = "last_login")
+    private LocalDateTime lastLogin;
+
+    // Default constructor
     public UserEntity() {
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public UserEntity(Long id, String username, String passwordHash, String fullName, UserRole role, boolean isActive) {
-        this.id = id;
+    // Constructor with essential fields
+    public UserEntity(String username, String passwordHash, String fullName, UserRole role, String phoneNumber) {
         this.username = username;
         this.passwordHash = passwordHash;
         this.fullName = fullName;
         this.role = role;
-        this.isActive = isActive;
         this.phoneNumber = phoneNumber;
-
+        this.isActive = true;
     }
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -116,11 +103,90 @@ public class UserEntity {
         this.role = role;
     }
 
-    public boolean isActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setIsActive(Boolean active) {
         this.isActive = active;
+    }
+
+    // Alternative method name for boolean convention
+    public boolean isActive() {
+        return isActive != null && isActive;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getVillage() {
+        return village;
+    }
+
+    public void setVillage(String village) {
+        this.village = village;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(LocalDateTime lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", role=" + role +
+                ", isActive=" + isActive +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", district='" + district + '\'' +
+                ", state='" + state + '\'' +
+                ", village='" + village + '\'' +
+                ", createdAt=" + createdAt +
+                ", lastLogin=" + lastLogin +
+                '}';
     }
 }

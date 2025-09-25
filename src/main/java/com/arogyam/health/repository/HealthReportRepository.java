@@ -1,4 +1,0 @@
-package com.arogyam.health.repository;
-
-public interface HealthReportRepository {
-}

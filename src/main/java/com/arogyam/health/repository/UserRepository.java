@@ -15,21 +15,21 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     Optional<UserEntity> findByUsername(String username);
 
-    Optional<UserEntity> findByPhoneNumber (String phoneNumber);
+    Optional<UserEntity> findByPhoneNumber(String phoneNumber);
 
     boolean existsByUsername(String username);
 
     boolean existsByPhoneNumber(String phoneNumber);
 
-    List<UserEntity> findByVillageIdAndRole(Long villageId, UserRole role);
+    List<UserEntity> findByVillageAndRole(String village, UserRole role);
 
     List<UserEntity> findByDistrictAndRole(String district, UserRole role);
 
     List<UserEntity> findByIsActiveTrue();
 
-    @Query("SELECT u FROM UserEntity u WHERE u.role = : role AND u.isActive = true")
+    @Query("SELECT u FROM UserEntity u WHERE u.role = :role AND u.isActive = true")
     List<UserEntity> findActiveUserByRole(@Param("role") UserRole role);
 
     @Query("SELECT COUNT(u) FROM UserEntity u WHERE u.role = :role AND u.district = :district")
-    long countByRoleAndDistrict(@Param("role") UserRole role, @Param("district") String district );
+    long countByRoleAndDistrict(@Param("role") UserRole role, @Param("district") String district);
 }
